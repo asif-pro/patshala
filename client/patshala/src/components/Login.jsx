@@ -11,7 +11,7 @@ const Login = () => {
 
     const login = () => {
         console.log('logged-in');
-        navigate('/teacher_dashboard');
+        navigate('/dashboard');
     };
 
 

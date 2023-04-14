@@ -1,9 +1,11 @@
 const loginModel = require ( '../model/loginModel' );
 const bcrypt = require ('bcrypt');
+const {createSession, getSession, destroySession} = require('../session');
 
 const loginController = {};
+const saltRounds = 10;
 
-loginController.dashboard = async ( req, res ) => {
+loginController.login = async ( req, res ) => {
 
     try {
 
@@ -19,7 +21,15 @@ loginController.dashboard = async ( req, res ) => {
 
             if (validate)  {
                 console.log('password matched');
-                res.status = 200;
+                const token = createSession(userId);
+
+                res.cookie('accessToken', token, {
+                httpOnly: false,
+                secure: false,
+                sameSite: 'Strict'
+                });
+                res.sendStatus(200);
+                // res.status = 200;
             }
             else console.log('wrong password');
         }

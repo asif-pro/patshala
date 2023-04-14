@@ -5,7 +5,7 @@ const express    = require ( 'express' );
 const router     = express.Router ();
 
 
-router.post ('/dashboard', loginController.dashboard);
+router.post ('/login', loginController.login);
 router.post ('/insert_student', studentController.insertStudent);
 
 

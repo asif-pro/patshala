@@ -11,10 +11,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.formDiv{
+  margin-top: 200px;
+}
 
-.loginForm {
+ .loginForm {
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 300px;
 }
+/*.topBar {
+  background: #998989;
+  height: 50px;
+}
+.container {
+  background: #e22828;
+  height: 200px;
+  display: flex;
+}
+.sidebar {
+  background: #2a33b4;
+  flex-grow: 1;
+}
+.dashboard {
+  background: #bd8cd0;
+  flex-grow: 4;
+}
+.dashupper {
+  display: flex;
+  justify-content: space-around;
+  background: #f1eeee;
+}
+
+.upperone{
+  background: #000;
+}
+.uppertwo{
+  background: #d82a2a;
+}
+.upperthree{
+  background: #d6b2b2;
+}
+.dashlower{
+  display: flex;
+  justify-content: space-around;
+  background: #f1eeee;
+} */
