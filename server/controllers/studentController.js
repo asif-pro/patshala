@@ -17,5 +17,18 @@ studentController.insertStudent = async ( req, res ) => {
     res.status = 200 ;
 
 }
+studentController.getAllStudent = async ( req, res ) => {
+    try {
+
+        res.status         = 200;
+        const allStudents  = await studentModel.find ( {} );
+        res.send ( allStudents );
+
+    } catch ( err ) {
+
+        res.status = 500;
+        res.send ( err );
+    }
+}
 
 module.exports = studentController;

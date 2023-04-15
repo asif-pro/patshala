@@ -7,6 +7,7 @@ const router     = express.Router ();
 
 router.post ('/login', loginController.login);
 router.post ('/insert_student', studentController.insertStudent);
+router.get ('/get_all_students',studentController.getAllStudent)
 
 
 

@@ -32,9 +32,11 @@ loginController.login = async ( req, res ) => {
                 // res.status = 200;
             }
             else console.log('wrong password');
+            res.sendStatus(401);
         }
         else {
             console.log('Invalid User');
+            res.sendStatus(401);
         }
         
         
@@ -43,7 +45,7 @@ loginController.login = async ( req, res ) => {
 
     catch (err) {
         res.status = 500 ;
-        res.send (err);
+        // res.send (err);
     }
 }
 

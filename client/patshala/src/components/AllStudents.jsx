@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
+import { getAllStudents } from '../studentServices';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -29,57 +31,101 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 
 
  // All Student
-const columns = [
-  { id: 'name', label: 'Student Name', maxWidth: 170 },
-  { id: 'id', label: 'ID', maxWidth: 50 },
-  {
-    id: 'studentClass',
-    label: 'Class',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'section',
-    label: 'Section',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'email',
-    label: 'Email',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-];
+// const columns = [
+//   { id: 'name', label: 'Student Name', maxWidth: 170 },
+//   { id: 'id', label: 'ID', maxWidth: 50 },
+//   {
+//     id: 'studentClass',
+//     label: 'Class',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value) => value.toLocaleString('en-US'),
+//   },
+//   {
+//     id: 'section',
+//     label: 'Section',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value) => value.toLocaleString('en-US'),
+//   },
+//   {
+//     id: 'email',
+//     label: 'Email',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value) => value.toFixed(2),
+//   },
+// ];
 
-function createData(name, id, studentClass, section) {
-  const email = studentClass / section;
+function createData(name, id, studentClass, section, email) {
   return { name, id, studentClass, section, email };
 }
 
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
+// const rows = [
+//   createData('India', 'IN', 1324171354, 3287263),
+//   createData('China', 'CN', 1403500365, 9596961),
+//   createData('Italy', 'IT', 60483973, 301340),
+//   createData('United States', 'US', 327167434, 9833520),
+//   createData('Canada', 'CA', 37602103, 9984670),
+//   createData('Australia', 'AU', 25475400, 7692024),
+//   createData('Germany', 'DE', 83019200, 357578),
+//   createData('Ireland', 'IE', 4857000, 70273),
+//   createData('Mexico', 'MX', 126577691, 1972550),
+//   createData('Japan', 'JP', 126317000, 377973),
+//   createData('France', 'FR', 67022000, 640679),
+//   createData('United Kingdom', 'GB', 67545757, 242495),
+//   createData('Russia', 'RU', 146793744, 17098246),
+//   createData('Nigeria', 'NG', 200962417, 923768),
+//   createData('Brazil', 'BR', 210147125, 8515767),
+// ];
+
+const rows = [];
 
 
 const AllStudents = () => {
+
+  const [allStudents, setAllStudents] = useState ( [] );
+
+  useEffect ( () => {
+
+    const getStudents = async () => {
+      const students = await getAllStudents();
+
+      setAllStudents(students);
+      allStudents.forEach((item)=>{
+        rows.push(createData(item.studentName, item.studentId, item.clas_s, item.section, item.email));
+      });
+    }
+
+    getStudents();
+    
+  }, [])
+
+  const columns = [
+    { id: 'name', label: 'Student Name', maxWidth: 170 },
+    { id: 'id', label: 'ID', maxWidth: 50 },
+    {
+      id: 'studentClass',
+      label: 'Class',
+      minWidth: 170,
+      align: 'right',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'section',
+      label: 'Section',
+      minWidth: 170,
+      align: 'right',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      minWidth: 170,
+      align: 'right',
+      format: (value) => value.toFixed(2),
+    },
+  ];
 
  // All Student
  const [page, setPage] = React.useState(0);
@@ -136,14 +182,6 @@ const AllStudents = () => {
         }}
       />
       <TextField
-        id="outlined-read-only-input"
-        label="Password  "
-        defaultValue="Password"
-        InputProps={{
-          readOnly: true,
-        }}
-      />
-      <TextField
         required
         id="outlined-required"
         label="E-Mail"
@@ -153,8 +191,16 @@ const AllStudents = () => {
         id="outlined-required"
         label="Phone Number"
       />
-      <Box sx={{ maxWidth: 120 }}>
-      <FormControl fullWidth>
+      <TextField
+        id="outlined-read-only-input"
+        label="Password  "
+        defaultValue="Password"
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <br></br>
+      <FormControl sx={{ minWidth: 150, paddingLeft: 1, paddingRight: 1 }}>
         <InputLabel id="demo-simple-select-label">Gender</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -168,42 +214,34 @@ const AllStudents = () => {
           <MenuItem value={'Other'}>Other</MenuItem>
         </Select>
       </FormControl>
-    </Box>
-    <Box sx={{ maxWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl sx={{ minWidth: 150, paddingRight: 1 }}>
         <InputLabel id="demo-simple-select-label">Class</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={classs}
-          label="Class"
-          onChange={classChange}
+          value={gender}
+          label="Gender"
+          onChange={genderChange}
         >
-          <MenuItem value={'1'}>1</MenuItem>
-          <MenuItem value={'2'}>2</MenuItem>
-          <MenuItem value={'3'}>3</MenuItem>
-          <MenuItem value={'4'}>4</MenuItem>
-          <MenuItem value={'5'}>5</MenuItem>
-          <MenuItem value={'6'}>6</MenuItem>
+          <MenuItem value={'Male'}>Male</MenuItem>
+          <MenuItem value={'Female'}>Female</MenuItem>
+          <MenuItem value={'Other'}>Other</MenuItem>
         </Select>
       </FormControl>
-    </Box>
-    <Box sx={{ maxWidth: 120 }}>
-      <FormControl fullWidth>
+      {/* <FormControl sx={{ minWidth: 150 }}>
         <InputLabel id="demo-simple-select-label">Section</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={section}
-          label="Section"
-          onChange={sectionChange}
+          value={gender}
+          label="Gender"
+          onChange={genderChange}
         >
-          <MenuItem value={'A'}>A</MenuItem>
-          <MenuItem value={'B'}>B</MenuItem>
-          <MenuItem value={'C'}>C</MenuItem>
+          <MenuItem value={'Male'}>Male</MenuItem>
+          <MenuItem value={'Female'}>Female</MenuItem>
+          <MenuItem value={'Other'}>Other</MenuItem>
         </Select>
-      </FormControl>
-    </Box>
+      </FormControl> */}
     
     {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']}>
@@ -238,7 +276,7 @@ const AllStudents = () => {
         defaultValue="Default Value"
         helperText="Some important text"
       /> */}
-      <Stack spacing={2} direction="row">
+      <Stack spacing={2} direction="row" sx={{ paddingTop: 4, paddingLeft: 1, paddingBottom: 5}}>
       <Button variant="contained">Save</Button>
       <Button variant="outlined">Reset</Button>
     </Stack>
@@ -356,7 +394,7 @@ const AllStudents = () => {
   {/* search Box */}
   <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', marginBottom: 5}}
     >
       <IconButton sx={{ p: '10px' }} aria-label="menu">
         
