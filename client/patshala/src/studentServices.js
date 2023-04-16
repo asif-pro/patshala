@@ -1,11 +1,22 @@
 const url = 'http://localhost:3003/';
 
-export function getAllStudents() {
+export async function getAllStudents() {
 
-    return fetch(url+'get_all_students').then((response) => response.json());
+  console.log(await fetch(url+'get_all_students').then((response) => response.json()));
+  return await fetch(url+'get_all_students').then((response) => response.json());
 
    
 }
+export async function createStudent(data) {
+
+   return await fetch(url+'insert_student', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((response) => response.json());
+  }
 
 // try {
 //     const options = {

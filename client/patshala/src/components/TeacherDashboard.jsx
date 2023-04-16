@@ -14,6 +14,9 @@ import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOutlined';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+
 
 Chart.register(CategoryScale);
 
@@ -32,6 +35,7 @@ const TeacherDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
+          marginLeft: 17
         },
       }}
     >
@@ -47,10 +51,11 @@ const TeacherDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
+          marginLeft: 17
         },
       }}
     >
-      <Paper elevation={3}>Upcoming Appointments
+      <Paper elevation={3}><h2 className='cardHeader'>Next Appointments</h2>
         <List
       sx={{
         width: '100%',
@@ -61,41 +66,41 @@ const TeacherDashboard = () => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="John Petrucci" secondary="Jan 9, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Synyster Gates" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Myles Kennedy" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Mark Tremonti" secondary="July 20, 2014" />
       </ListItem>
       
     </List></Paper>
-      <Paper elevation={3}>Assignment Submission Coming
+    <Paper elevation={3}><h2 className='cardHeader'>Upcoming Classes</h2>
         <List
       sx={{
         width: '100%',
@@ -106,41 +111,43 @@ const TeacherDashboard = () => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            < MenuBookIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="Section-D" secondary="Jan 9, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <MenuBookIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Section-C" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <MenuBookIcon  />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Section-A" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <MenuBookIcon  />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Section-D" secondary="July 20, 2014" />
       </ListItem>
       
     </List></Paper>
-      <Paper elevation={3}>Notice Board
+      <Paper elevation={3} sx={{
+        margin: '1 rem'
+      }}><h2 className='cardHeader'>Notice Board</h2>
         <List
       sx={{
         width: '100%',
@@ -154,7 +161,7 @@ const TeacherDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="Science Olympic" secondary="Jan 9, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -163,7 +170,7 @@ const TeacherDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Summer Holiday" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -172,7 +179,7 @@ const TeacherDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Sports Day" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -181,7 +188,7 @@ const TeacherDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Campus Rules" secondary="July 20, 2014" />
       </ListItem>
       
     </List></Paper>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { getAllStudents } from '../studentServices';
+import { getAllStudents, createStudent } from '../studentServices';
+import { getTeacher } from '../teacherServices';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -29,7 +30,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 
 
-
+let year=new Date();
+let sid = 'S-'+Math.floor((Math.random() * 1000) + 1)+'-'+year.getUTCFullYear();
+let spassword = (Math.random() + 1).toString(36).substring(1);
  // All Student
 // const columns = [
 //   { id: 'name', label: 'Student Name', maxWidth: 170 },
@@ -57,8 +60,8 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 //   },
 // ];
 
-function createData(name, id, studentClass, section, email) {
-  return { name, id, studentClass, section, email };
+function createData(name, id, studentGender, studentClass, section, phone, email) {
+  return { name, id, studentGender, studentClass, section, phone, email };
 }
 
 // const rows = [
@@ -79,31 +82,48 @@ function createData(name, id, studentClass, section, email) {
 //   createData('Brazil', 'BR', 210147125, 8515767),
 // ];
 
-const rows = [];
+
 
 
 const AllStudents = () => {
 
-  const [allStudents, setAllStudents] = useState ( [] );
+  // const [allStudents, setAllStudents] = useState ( [] );
+  const [rows, setRows] = useState([]);
+  
 
   useEffect ( () => {
 
     const getStudents = async () => {
-      const students = await getAllStudents();
+      // const students = await getAllStudents();
+      // return students;
+      // setAllStudents(students);
+      // students.forEach((item)=>{
+      //   rows.push(createData(item.studentName, item.studentId, item.clas_s, item.section, item.email));
+      // });
 
-      setAllStudents(students);
-      allStudents.forEach((item)=>{
-        rows.push(createData(item.studentName, item.studentId, item.clas_s, item.section, item.email));
-      });
     }
 
-    getStudents();
+    getAllStudents()
+    .then((res)=>{
+      let rows = [];
+      res.forEach((item)=>{
+        rows.push(createData(item.studentName, item.studentId, item.gender, item.clas_s, item.section, item.phone, item.email));
+      });
+      setRows(rows);
+    });
     
   }, [])
 
   const columns = [
     { id: 'name', label: 'Student Name', maxWidth: 170 },
-    { id: 'id', label: 'ID', maxWidth: 50 },
+    { id: 'id', label: 'Student-ID', maxWidth: 50 },
+    {
+      id: 'studentGender',
+      label: 'Gender',
+      minWidth: 170,
+      align: 'right',
+      format: (value) => value.toLocaleString('en-US'),
+    },
     {
       id: 'studentClass',
       label: 'Class',
@@ -117,6 +137,13 @@ const AllStudents = () => {
       minWidth: 170,
       align: 'right',
       format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'phone',
+      label: 'Phone',
+      minWidth: 170,
+      align: 'right',
+      format: (value) => value
     },
     {
       id: 'email',
@@ -144,16 +171,56 @@ const AllStudents = () => {
   // Add Student
   const [gender, setGender] = React.useState('');
   const [classs, setClass] = React.useState('');
+  const [studentName, setStudentName] = React.useState('');
+  // const [section, setSection] = React.useState('');
   const [section, setSection] = React.useState('');
 
+  const nameChange = (event) => {
+    setStudentName(event.target.value);
+    // console.log('Namechanged');
+  };
   const genderChange = (event) => {
     setGender(event.target.value);
+    // console.log('genderchanged');
   };
   const classChange = (event) => {
     setClass(event.target.value);
+    // console.log('classchanged');
+    // console.log(event.target.value);
   };
+  // console.log(classs);
+  const handelSave = async (e) => {
+    e.preventDefault()
+    const tid = '643b0e0514c5e76a291f83d5'
+    const {ownSection} = await getTeacher(tid);
+
+    const data ={
+      studentId : sid,
+      studentName : e.target.studentname.value,
+      password : spassword,
+      gender : e.target.studentgender.value,
+      dob : '5345', //need to change
+      clas_s : e.target.studentclass.value,
+      section : ownSection, //need to change
+      phone : e.target.studentphone.value,
+      email : e.target.studentmail.value,
+      userType : 3
+    }
+    createStudent(data).then((item)=>{
+      let newRow = createData(item.studentName, item.studentId, item.gender, item.clas_s, item.section, item.phone, item.email);
+      setRows((previous)=>[...previous, newRow]);
+    }).then(()=>{
+      e.target.reset()
+
+    })
+
+
+    };
+    
+
   const sectionChange = (event) => {
     setSection(event.target.value);
+    console.log('sectionchanged');
   };
 
   return (
@@ -164,19 +231,22 @@ const AllStudents = () => {
     sx={{
       '& .MuiTextField-root': { m: 1, width: '25ch' },
     }}
-    noValidate
     autoComplete="off"
+    onSubmit={handelSave}
   >
-    <div className='formDiv'>
+    <div>
       <TextField
         required
         id="outlined-required"
         label="Student Name"
+        name='studentname'
+        // onChange={nameChange}
       />
       <TextField
         id="outlined-read-only-input"
         label="Student ID  "
-        defaultValue="Student-ID"
+        name='studentid'
+        defaultValue={sid}
         InputProps={{
           readOnly: true,
         }}
@@ -184,17 +254,21 @@ const AllStudents = () => {
       <TextField
         required
         id="outlined-required"
+        name='studentmail'
         label="E-Mail"
+        type='email'
       />
       <TextField
         required
+        name='studentphone'
         id="outlined-required"
         label="Phone Number"
       />
       <TextField
         id="outlined-read-only-input"
         label="Password  "
-        defaultValue="Password"
+        name='studentpassword'
+        defaultValue={spassword}
         InputProps={{
           readOnly: true,
         }}
@@ -205,6 +279,7 @@ const AllStudents = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          name='studentgender'
           value={gender}
           label="Gender"
           onChange={genderChange}
@@ -219,13 +294,19 @@ const AllStudents = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={gender}
-          label="Gender"
-          onChange={genderChange}
+          name='studentclass'
+          value={classs}
+          label="Class"
+          onChange={classChange}
         >
-          <MenuItem value={'Male'}>Male</MenuItem>
-          <MenuItem value={'Female'}>Female</MenuItem>
-          <MenuItem value={'Other'}>Other</MenuItem>
+          <MenuItem value={'1'}>1</MenuItem>
+          <MenuItem value={'2'}>2</MenuItem>
+          <MenuItem value={'3'}>3</MenuItem>
+          <MenuItem value={'4'}>4</MenuItem>
+          <MenuItem value={'5'}>5</MenuItem>
+          <MenuItem value={'6'}>6</MenuItem>
+          <MenuItem value={'7'}>7</MenuItem>
+          <MenuItem value={'8'}>8</MenuItem>
         </Select>
       </FormControl>
       {/* <FormControl sx={{ minWidth: 150 }}>
@@ -277,9 +358,10 @@ const AllStudents = () => {
         helperText="Some important text"
       /> */}
       <Stack spacing={2} direction="row" sx={{ paddingTop: 4, paddingLeft: 1, paddingBottom: 5}}>
-      <Button variant="contained">Save</Button>
+      <Button variant="contained" type='submit'>Save</Button>
       <Button variant="outlined">Reset</Button>
     </Stack>
+      
     </div>
     
     {/* <div>

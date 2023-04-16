@@ -13,6 +13,22 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 
+//Searchbar
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+
+//SelectBox
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 const useFakeMutation = () => {
   return React.useCallback(
     (user) =>
@@ -30,16 +46,40 @@ const useFakeMutation = () => {
 };
 
 function computeMutation(newRow, oldRow) {
-  if (newRow.name !== oldRow.name) {
-    return `Name from '${oldRow.name}' to '${newRow.name}'`;
+  // if (newRow.name !== oldRow.name) {
+  //   return `Name from '${oldRow.name}' to '${newRow.name}'`;
+  // }
+  if (newRow.assignment1 !== oldRow.assignment1) {
+    return `Assignment Marks from '${oldRow.assignment1 || ''}' to '${newRow.assignment1 || ''}'`;
   }
-  if (newRow.age !== oldRow.age) {
-    return `Age from '${oldRow.age || ''}' to '${newRow.age || ''}'`;
+  if (newRow.assignment2 !== oldRow.assignment2) {
+    return `Assignment Marks from '${oldRow.assignment2 || ''}' to '${newRow.assignment2 || ''}'`;
+  }
+  if (newRow.assignment3 !== oldRow.assignment3) {
+    return `Assignment Marks from '${oldRow.assignment3 || ''}' to '${newRow.assignment3 || ''}'`;
+  }
+  if (newRow.assignment4 !== oldRow.assignment4) {
+    return `Assignment Marks from '${oldRow.assignment4 || ''}' to '${newRow.assignment4 || ''}'`;
+  }
+  if (newRow.assignment5 !== oldRow.assignment5) {
+    return `Assignment Marks from '${oldRow.assignment5 || ''}' to '${newRow.assignment5 || ''}'`;
+  }
+  if (newRow.assignment6 !== oldRow.assignment6) {
+    return `Assignment Marks from '${oldRow.assignment6 || ''}' to '${newRow.assignment6 || ''}'`;
   }
   return null;
 }
 
 const TeacherAssignment = () => {
+  //Section SelectBox
+  const [section, setSection] = React.useState('');
+
+  const handleSectionChange = (event) => {
+    setSection(event.target.value);
+  };
+
+
+  //Table
     const mutateRow = useFakeMutation();
     const noButtonRef = React.useRef(null);
     const [promiseArguments, setPromiseArguments] = React.useState(null);
@@ -119,70 +159,176 @@ const TeacherAssignment = () => {
     };
   
     return (
-      <div style={{ height: 400, width: '100%' }}>
-        {renderConfirmDialog()}
-        <DataGrid rows={rows} columns={columns} processRowUpdate={processRowUpdate} />
-        {!!snackbar && (
-          <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-            <Alert {...snackbar} onClose={handleCloseSnackbar} />
-          </Snackbar>
-        )}
-      </div>
+    <>
+
+  <div className='searchnselect'>
+    {/* //Searchbar */}
+
+<Paper
+component="form"
+sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginBottom: 5, marginRight: 3 }}
+>
+<InputBase
+  sx={{ ml: 1, flex: 1 }}
+  placeholder="Search Here ...."
+  inputProps={{ 'aria-label': 'search Here ....' }}
+/>
+<IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+  <SearchIcon />
+</IconButton>
+
+</Paper>
+
+{/* SelectSectionBox */}
+
+<Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Sections</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={section}
+          label="Sections"
+          onChange={handleSectionChange}
+        >
+          <MenuItem value={'A'}>A</MenuItem>
+          <MenuItem value={'B'}>B</MenuItem>
+          <MenuItem value={'C'}>C</MenuItem>
+          <MenuItem value={'D'}>D</MenuItem>
+          <MenuItem value={'E'}>E</MenuItem>
+          <MenuItem value={'F'}>F</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  </div>
+
+  {/* Table */}
+  <div style={{ height: 400, width: '100%' }}>
+    {renderConfirmDialog()}
+    <DataGrid rows={rows} columns={columns} processRowUpdate={processRowUpdate} />
+    {!!snackbar && (
+      <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
+        <Alert {...snackbar} onClose={handleCloseSnackbar} />
+      </Snackbar>
+    )}
+  </div>
+
+    </>
     );
   }
   
   const columns = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
-    { field: 'age', headerName: 'Age', type: 'number', editable: true },
+    { field: 'name', headerName: 'Student Name', width: 180, editable: false},
+    
+    { field: 'id', headerName: 'Student-ID'},
+    { field: 'section', headerName: 'Section', editable: false },
+    // {
+    //   field: 'lastLogin',
+    //   headerName: 'Submission Date',
+    //   // type: 'dateTime',
+    //   width: 150,
+    //   editable: true
+    // },
+
     {
-      field: 'dateCreated',
-      headerName: 'ID',
-      type: 'date',
-      width: 180,
+      field: 'assignment1',
+      headerName: 'Assignment-1',
+      type: 'number',
+      width: 120,
+      editable: true
     },
     {
-      field: 'lastLogin',
-      headerName: 'Last Login',
-      type: 'dateTime',
-      width: 220,
+      field: 'assignment2',
+      headerName: 'Assignment-2',
+      type: 'number',
+      width: 120,
+      editable: true
+    },
+    {
+      field: 'assignment3',
+      headerName: 'Assignment-3',
+      type: 'number',
+      width: 120,
+      editable: true
+    },
+    {
+      field: 'assignment4',
+      headerName: 'Assignment-4',
+      type: 'number',
+      width: 120,
+      editable: true
+    },
+    {
+      field: 'assignment5',
+      headerName: 'Assignment-5',
+      type: 'number',
+      width: 120,
+      editable: true
+    },
+    {
+      field: 'assignment6',
+      headerName: 'Assignment-6',
+      type: 'number',
+      width: 120,
+      editable: true
     },
   ];
   
   const rows = [
     {
-      id: 1,
+      id: 'S-435-435',
       name: randomTraderName(),
-      age: 25,
-      dateCreated: randomCreatedDate(),
-      lastLogin: randomUpdatedDate(),
+      section: "A",
+      assignment1:'0',
+      assignment2:'0',
+      assignment3:'0',
+      assignment4:'0',
+      assignment5:'0',
+      assignment6:'0',
     },
     {
-      id: 2,
+      id: "S-75-634",
       name: randomTraderName(),
-      age: 36,
-      dateCreated: randomCreatedDate(),
-      lastLogin: randomUpdatedDate(),
+      section: 'B',
+      assignment1:'0',
+      assignment2:'0',
+      assignment3:'0',
+      assignment4:'0',
+      assignment5:'0',
+      assignment6:'0',
     },
     {
-      id: 3,
+      id: "S-45-634",
       name: randomTraderName(),
-      age: 19,
-      dateCreated: randomCreatedDate(),
-      lastLogin: randomUpdatedDate(),
+      section: "C",
+      assignment1:'0',
+      assignment2:'0',
+      assignment3:'0',
+      assignment4:'0',
+      assignment5:'0',
+      assignment6:'0',
     },
     {
-      id: 4,
+      id: "S-715-611",
       name: randomTraderName(),
-      age: 28,
-      dateCreated: randomCreatedDate(),
-      lastLogin: randomUpdatedDate(),
+      section: 'D',
+      assignment1:'0',
+      assignment2:'0',
+      assignment3:'0',
+      assignment4:'0',
+      assignment5:'0',
+      assignment6:'0',
     },
     {
-      id: 5,
+      id: "S-94-034",
       name: randomTraderName(),
-      age: 23,
-      dateCreated: randomCreatedDate(),
-      lastLogin: randomUpdatedDate(),
+      section: 'E',
+      assignment1:'0',
+      assignment2:'0',
+      assignment3:'0',
+      assignment4:'0',
+      assignment5:'0',
+      assignment6:'0',
     },
   ];
 

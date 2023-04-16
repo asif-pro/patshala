@@ -28,15 +28,18 @@ loginController.login = async ( req, res ) => {
                 secure: false,
                 sameSite: 'Strict'
                 });
-                res.sendStatus(200);
-                // res.status = 200;
+                // res.sendStatus(200);
+                const {userType} = loginData;
+                res.status(200).send(JSON.stringify(userType));
             }
-            else console.log('wrong password');
-            res.sendStatus(401);
+            else {
+                console.log('wrong password');
+                return res.status (400). json({ msg: "wrong password" });
+            }
         }
         else {
             console.log('Invalid User');
-            res.sendStatus(401);
+            return res.status (401). json({ msg: "Invalid User" });
         }
         
         

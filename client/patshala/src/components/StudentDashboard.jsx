@@ -30,6 +30,7 @@ const StudentDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
+          marginLeft: 17
         },
       }}
     >
@@ -45,10 +46,11 @@ const StudentDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
+          marginLeft: 17
         },
       }}
     >
-      <Paper elevation={3}>Attandance by Subject
+      <Paper elevation={3}><h2 className='cardHeader'>Attandance by Subject</h2>
         <List
       sx={{
         width: '100%',
@@ -62,7 +64,7 @@ const StudentDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="Biology" secondary="100%" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -71,7 +73,7 @@ const StudentDashboard = () => {
             <InventoryOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="History" secondary="70%" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -80,7 +82,7 @@ const StudentDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Math" secondary="92%" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -89,11 +91,11 @@ const StudentDashboard = () => {
             <ContentPasteSearchIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Physics" secondary="86%" />
       </ListItem>
       
     </List></Paper>
-      <Paper elevation={3}>Next Appointment
+      <Paper elevation={3}><h2 className='cardHeader'>Next Appointment</h2>
         <List
       sx={{
         width: '100%',
@@ -107,7 +109,7 @@ const StudentDashboard = () => {
             <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="John Petrucci" secondary="Jan 9, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -116,7 +118,7 @@ const StudentDashboard = () => {
             <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Synyster Gates" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -125,7 +127,7 @@ const StudentDashboard = () => {
             <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Myles Kennedy" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -134,11 +136,11 @@ const StudentDashboard = () => {
             <VideoCameraFrontOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Mark Tremonti" secondary="July 20, 2014" />
       </ListItem>
       
     </List></Paper>
-      <Paper elevation={3}>Ucoming Classes
+      <Paper elevation={3}><h2 className='cardHeader'>Upcoming Classes</h2>
         <List
       sx={{
         width: '100%',
@@ -152,7 +154,7 @@ const StudentDashboard = () => {
             < MenuBookIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="Math" secondary="Jan 9, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -161,7 +163,7 @@ const StudentDashboard = () => {
             <MenuBookIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="Language" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -170,7 +172,7 @@ const StudentDashboard = () => {
             <MenuBookIcon  />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="History" secondary="Jan 7, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -179,7 +181,7 @@ const StudentDashboard = () => {
             <MenuBookIcon  />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="Physics" secondary="July 20, 2014" />
       </ListItem>
       
     </List></Paper>

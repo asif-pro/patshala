@@ -8,6 +8,7 @@ import AllStudents from './components/AllStudents';
 import StudentDashboard from './components/StudentDashboard';
 import StudentSubject from './components/StudentSubject';
 import TeacherAssignment from './components/TeacherAssignment';
+import AllSection from './components/AllSection';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
     <Route path='/allstudents' element={<AllStudents/>}></Route>
     <Route path='/allsubjects' element={<StudentSubject/>}></Route>
     <Route path='/teacher_assignments' element={<TeacherAssignment/>}></Route>
+    <Route path='/all_sections' element={<AllSection/>}></Route>
   </Routes>
     
     

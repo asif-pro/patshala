@@ -21,6 +21,12 @@ code {
   flex-direction: column;
   margin-top: 300px;
 }
+.cardHeader{
+  margin-left: 20px;
+}
+.searchnselect {
+  display: flex;
+}
 /*.topBar {
   background: #998989;
   height: 50px;

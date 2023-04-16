@@ -131,7 +131,7 @@ function NavbarWrapper ({component})  {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Teacher Dashboard
+            {/* Teacher Dashboard */}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -143,7 +143,7 @@ function NavbarWrapper ({component})  {
         </DrawerHeader>
         <Divider />
         <List>
-          {[{label:'Dashboard', route: '/teacher_dashboard'}, {label:'Students', route: '/allstudents'}, 'Sections', {label:'Assignments', route: '/teacher_assignments'}, 'Appointments','Attandance', 'Soft Skills', 'Notices'].map((item, index) => (
+          {[{label:'Dashboard', route: '/teacher_dashboard'}, {label:'Students', route: '/allstudents'}, {label:'Sections', route: '/all_sections'}, {label:'Assignments', route: '/teacher_assignments'}, {label:'Appointments', route: '/teacher_appointments'}, {label:'Attendance', route: '/attendance'}, {label:'Soft Skills', route: '/soft_skills'}, {label:'Notices', route: '/notices'}].map((item, index) => (
             <ListItem key={item.label} disablePadding sx={{ display: 'block' }} >
               <ListItemButton onClick={()=>{
                 navigate(item.route);
@@ -173,10 +173,12 @@ function NavbarWrapper ({component})  {
                 </ListItemIcon>
                 <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              <Divider />
             </ListItem>
+            
           ))}
         </List>
-        <Divider />
+        
         {/* <List>
           {['Attandance', 'Soft Skills', 'Notices'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
