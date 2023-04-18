@@ -14,6 +14,6 @@ export async function getTeacher(id) {
     //     return response.json();
     //   });
 
-    return fetch(url+'getTeacher/'+id).then((response) => response.json());
+    return await fetch(url+'getTeacher/'+id).then((response) => response.json());
 
 }

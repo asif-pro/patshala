@@ -8,13 +8,12 @@ const teacherController = {};
 teacherController.insertTeacher = async ( req, res ) => {
 
     try {
-        const { TeacherId, TeacherName, password, gender, isHeadOf, ownSection, phone, email, userType } = req.body ;
+        const { TeacherId, TeacherName, subject, password, gender, isHeadOf, ownSection, phone, email, userType } = req.body ;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    res.send (await teacherModel.create ({TeacherId, TeacherName, password: hashedPassword, gender, isHeadOf, ownSection, phone, email, userType }) );
+    res.status(200).send (await teacherModel.create ({TeacherId, TeacherName, subject, password: hashedPassword, gender, isHeadOf, ownSection, phone, email, userType }) );
     const userId = TeacherId;
     await loginModel.create ({userId, password: hashedPassword, userType});
-    res.sendStatus (200) ;
     } catch (error) {
         console.log(error)
         res.sendStatus(500);
@@ -36,7 +35,7 @@ teacherController.getAllTeachers = async ( req, res ) => {
 teacherController.getTeacher = async ( req, res ) => {
     try {
         const teacherId = req.params.id;
-        const teacherDetails = await teacherModel.findById(teacherId);
+        const teacherDetails = await teacherModel.findOne({TeacherId:teacherId});
         res.status(200).send (JSON.stringify(teacherDetails));
     }
     catch (error) {

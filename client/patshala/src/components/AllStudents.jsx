@@ -93,15 +93,15 @@ const AllStudents = () => {
 
   useEffect ( () => {
 
-    const getStudents = async () => {
-      // const students = await getAllStudents();
-      // return students;
-      // setAllStudents(students);
-      // students.forEach((item)=>{
-      //   rows.push(createData(item.studentName, item.studentId, item.clas_s, item.section, item.email));
-      // });
+    // const getStudents = async () => {
+    //   // const students = await getAllStudents();
+    //   // return students;
+    //   // setAllStudents(students);
+    //   // students.forEach((item)=>{
+    //   //   rows.push(createData(item.studentName, item.studentId, item.clas_s, item.section, item.email));
+    //   // });
 
-    }
+    // }
 
     getAllStudents()
     .then((res)=>{
@@ -191,7 +191,8 @@ const AllStudents = () => {
   // console.log(classs);
   const handelSave = async (e) => {
     e.preventDefault()
-    const tid = '643b0e0514c5e76a291f83d5'
+    const tid = localStorage.getItem('user_id');
+    console.log(tid);
     const {ownSection} = await getTeacher(tid);
 
     const data ={

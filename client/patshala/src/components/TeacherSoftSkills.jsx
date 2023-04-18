@@ -13,7 +13,6 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 
-//Searchbar
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
@@ -29,8 +28,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { getAssignmentBySection, updateAssignment } from '../assignmentServices';
 import { getTeacher } from '../teacherServices';
+import { getSoftSkillsBySubject , updateSoftSkillsScore } from '../sofSkillsServices'
 
 const useFakeMutation = () => {
   return React.useCallback(
@@ -47,59 +46,57 @@ const useFakeMutation = () => {
     [],
   );
 };
-function findDifference (newRow, oldRow){
-  for (let key of Object.keys (newRow)){
-    if (newRow[key] !== oldRow[key]) {
-      return key; 
-    }
-  }
-}
-
 
 function computeMutation(newRow, oldRow) {
-  
-    const changedAssignmentNumber = findDifference(newRow, oldRow);
-
-    return `${changedAssignmentNumber.toUpperCase()} score from ${oldRow[changedAssignmentNumber]} to ${newRow[changedAssignmentNumber]}` 
-  
+  if (newRow.TeamWork !== oldRow.TeamWork) {
+    return `Name from '${oldRow.TeamWork}' to '${newRow.TeamWork}'`;
+  }
+  if (newRow.Curiosity !== oldRow.Curiosity) {
+    return `Name from '${oldRow.Curiosity}' to '${newRow.Curiosity}'`;
+  }
+  if (newRow.Leadership !== oldRow.Leadership) {
+    return `Name from '${oldRow.Leadership}' to '${newRow.Leadership}'`;
+  }
+  if (newRow.Creativity !== oldRow.Creativity) {
+    return `Name from '${oldRow.Creativity}' to '${newRow.Creativity}'`;
+  }
+  return null;
 }
 
-const TeacherAssignment = () => {
-  //Section SelectBox
-  const [section, setSection] = React.useState('');
-  const [rows, setRows] = React.useState([]);
-  const [assignmentSubject, setAssignmentSubject] = React.useState('')
-  // const assignmentSubject = 'Math'; //get the teacher id from local storage then retrive the section of his/her
-  
-
-  React.useEffect ( () => {
-    getTeacher (localStorage.getItem('user_id'))
-    .then((res)=>{
-      setAssignmentSubject(res.subject)
-      return res.subject;
-    }).then((res)=>{
-
-      getAssignmentBySection(res)
-      .then((res)=>{
-         setRows(res);
-  
-      })
-    });
-
-   
-    
-    
-  }, [])
-
-  const handleSectionChange = (event) => {
-    setSection(event.target.value);
-  };
-
-
-  //Table
+const TeacherSoftSkills = () => {
+    const [section, setSection] = React.useState('');
     const mutateRow = useFakeMutation();
     const noButtonRef = React.useRef(null);
     const [promiseArguments, setPromiseArguments] = React.useState(null);
+    const [rows, setRows] = React.useState([]);
+    const [softSkillsSubject, setSoftSkillsSubject] = React.useState('')
+
+    function findDifference (newRow, oldRow){
+        for (let key of Object.keys (newRow)){
+          if (newRow[key] !== oldRow[key]) {
+            return key; 
+          }
+        }
+      }
+
+    React.useEffect ( () => {
+        getTeacher (localStorage.getItem('user_id'))
+        .then((res)=>{
+            setSoftSkillsSubject(res.subject)
+          return res.subject;
+        }).then((res)=>{
+    
+          getSoftSkillsBySubject(res)
+          .then((res)=>{
+             setRows(res);
+      
+          })
+        });
+    
+       
+        
+        
+      }, [])
   
     const [snackbar, setSnackbar] = React.useState(null);
   
@@ -111,18 +108,19 @@ const TeacherAssignment = () => {
           const mutation = computeMutation(newRow, oldRow);
           if (mutation) {
             // Save the arguments to resolve or reject the promise later
-            
             setPromiseArguments({ resolve, reject, newRow, oldRow });
           } else {
-            
             resolve(oldRow); // Nothing was changed
           }
         }),
       [],
     );
+
+    const handleSectionChange = (event) => {
+        setSection(event.target.value);
+      };
   
     const handleNo = () => {
-      console.log('change hoy nai')
       const { oldRow, resolve } = promiseArguments;
       resolve(oldRow); // Resolve with the old row to not update the internal state
       setPromiseArguments(null);
@@ -130,15 +128,14 @@ const TeacherAssignment = () => {
   
     const handleYes = async () => {
       const { newRow, oldRow, reject, resolve } = promiseArguments;
-      // 
-      // console.log(newRow);
-      // console.log(localStorage.getItem('user_id'))
-      // console.log('change hoise')
   
       try {
-        const assignment_number = findDifference (newRow, oldRow);
-        await updateAssignment(+assignment_number.split('')[assignment_number.split('').length-1], assignmentSubject, newRow.id, newRow[assignment_number]);
         // Make the HTTP request to save in the backend
+        // studentId, subject, skill_name, score
+        // newRow.id, newRow.subject, 
+        const skill_name = findDifference (newRow, oldRow);
+        
+         await updateSoftSkillsScore(newRow.id, newRow.subject, skill_name, newRow[skill_name]);
         const response = await mutateRow(newRow);
         setSnackbar({ children: 'User successfully saved', severity: 'success' });
         resolve(response);
@@ -185,9 +182,8 @@ const TeacherAssignment = () => {
     };
   
     return (
-    <>
-
-  <div className='searchnselect'>
+      <>
+        <div className='searchnselect'>
     {/* //Searchbar */}
 
 <Paper
@@ -227,135 +223,71 @@ sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginBot
       </FormControl>
     </Box>
   </div>
-
-  {/* Table */}
-  <div style={{ height: 400, width: '100%' }}>
-    {renderConfirmDialog()}
-    <DataGrid rows={rows} columns={columns} processRowUpdate={processRowUpdate} />
-    {!!snackbar && (
-      <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-        <Alert {...snackbar} onClose={handleCloseSnackbar} />
-      </Snackbar>
-    )}
-  </div>
-
-    </>
+        {/* Table */}
+        <div style={{ height: 400, width: '100%' }}>
+        {renderConfirmDialog()}
+        <DataGrid rows={rows} columns={columns} processRowUpdate={processRowUpdate} />
+        {!!snackbar && (
+          <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
+            <Alert {...snackbar} onClose={handleCloseSnackbar} />
+          </Snackbar>
+        )}
+      </div>
+      </>
     );
   }
   
   const columns = [
-    // { field: 'name', headerName: 'Student Name', width: 180, editable: false},
-    
-    { field: 'id', headerName: 'Student-ID'},
+    { field: 'id', headerName: 'Student-ID', width: 180, editable: false },
     { field: 'section', headerName: 'Section', editable: false },
-    // {
-    //   field: 'lastLogin',
-    //   headerName: 'Submission Date',
-    //   // type: 'dateTime',
-    //   width: 150,
-    //   editable: true
-    // },
-
     {
-      field: 'assignment1',
-      headerName: 'Assignment-1',
-      type: 'number',
-      width: 120,
-      editable: true
+      field: 'TeamWork',
+      headerName: 'Team Work',
+      type : 'number',
+      editable: true,
+      width: 180,
     },
     {
-      field: 'assignment2',
-      headerName: 'Assignment-2',
-      type: 'number',
-      width: 120,
-      editable: true
+        field: 'Curiosity',
+        headerName: 'Curiosity',
+        type : 'number',
+        editable: true,
+        width: 180,
+      },
+    {
+    field: 'Leadership',
+    headerName: 'Leadership',
+    type : 'number',
+    editable: true,
+    width: 180,
     },
     {
-      field: 'assignment3',
-      headerName: 'Assignment-3',
-      type: 'number',
-      width: 120,
-      editable: true
-    },
-    {
-      field: 'assignment4',
-      headerName: 'Assignment-4',
-      type: 'number',
-      width: 120,
-      editable: true
-    },
-    {
-      field: 'assignment5',
-      headerName: 'Assignment-5',
-      type: 'number',
-      width: 120,
-      editable: true
-    },
-    {
-      field: 'assignment6',
-      headerName: 'Assignment-6',
-      type: 'number',
-      width: 120,
-      editable: true
-    },
+        field: 'Craetivity',
+        headerName: 'Creativity',
+        type : 'number',
+        editable: true,
+        width: 180,
+      },
   ];
   
-  // const rows = [
-  //   {
-  //     id: 'S-435-435',
-  //     name: randomTraderName(),
-  //     section: "A",
-  //     assignment1:'0',
-  //     assignment2:'0',
-  //     assignment3:'0',
-  //     assignment4:'0',
-  //     assignment5:'0',
-  //     assignment6:'0',
-  //   },
-  //   {
-  //     id: "S-75-634",
-  //     name: randomTraderName(),
-  //     section: 'B',
-  //     assignment1:'0',
-  //     assignment2:'0',
-  //     assignment3:'0',
-  //     assignment4:'0',
-  //     assignment5:'0',
-  //     assignment6:'0',
-  //   },
-  //   {
-  //     id: "S-45-634",
-  //     name: randomTraderName(),
-  //     section: "C",
-  //     assignment1:'0',
-  //     assignment2:'0',
-  //     assignment3:'0',
-  //     assignment4:'0',
-  //     assignment5:'0',
-  //     assignment6:'0',
-  //   },
-  //   {
-  //     id: "S-715-611",
-  //     name: randomTraderName(),
-  //     section: 'D',
-  //     assignment1:'0',
-  //     assignment2:'0',
-  //     assignment3:'0',
-  //     assignment4:'0',
-  //     assignment5:'0',
-  //     assignment6:'0',
-  //   },
-  //   {
-  //     id: "S-94-034",
-  //     name: randomTraderName(),
-  //     section: 'E',
-  //     assignment1:'0',
-  //     assignment2:'0',
-  //     assignment3:'0',
-  //     assignment4:'0',
-  //     assignment5:'0',
-  //     assignment6:'0',
-  //   },
-  // ];
+  const rows = [
+    {
+      id: 1,
+      section: 'H',
+      TeamWork: 34,
+      Curiosity: 345,
+      Leadership: 345,
+      Creativity: 34,
+    },
+    {
+        id: 3,
+        section: 'H',
+        TeamWork: 34,
+        Curiosity: 345,
+        Leadership: 345,
+        Creativity: 34,
+      },
+    
+  ];
 
-export default TeacherAssignment
+export default TeacherSoftSkills

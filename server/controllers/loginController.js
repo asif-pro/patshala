@@ -11,6 +11,9 @@ loginController.login = async ( req, res ) => {
 
         const { userId, password } = req.body ;
 
+        console.log ('id', userId);
+        console.log ('pass', password);
+
         // inserting Data
         // res.send (await loginModel.create ({userId, password, userType}) );
 
@@ -30,7 +33,7 @@ loginController.login = async ( req, res ) => {
                 });
                 // res.sendStatus(200);
                 const {userType} = loginData;
-                res.status(200).send(JSON.stringify(userType));
+                res.status(200).send(JSON.stringify({userType, accessToken: token}));
             }
             else {
                 console.log('wrong password');

@@ -4,36 +4,77 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { checkLogin } from '../loginServices';
+import Cookies from 'js-cookie';
+import {CookiesContext} from './NavbarWrapper';
+
+// const {setCookie} = CookiesContext();
+
+
 
 const Login = () => {
-
+  const { setCookie } = React.useContext(CookiesContext);
   let navigate = useNavigate ();
 
-    const login = () => {
-        console.log('logged-in');
-        navigate('/dashboard');
+    const login = async (e) => { 
+      // console.log(e);
+      e.preventDefault()
+      // console.log('logged-in');
+      // console.log(e.target.userid.value);
+      // console.log(e.target.password.value);
+      const userid = e.target.userid.value;
+      const password = e.target.password.value;
+      const loginResult = await checkLogin(userid,password);
+      const authToken = loginResult.responseBody.accessToken;
+      Cookies.set('accessToken', authToken);
+      setCookie(authToken);
+      console.log(loginResult);
+
+      if (loginResult.status === 200){
+
+        if(loginResult.responseBody.userType === 3) {
+          localStorage.setItem('user_id',userid);
+          localStorage.setItem('user_type',loginResult.responseBody.userType);
+          // const storage = localStorage.getItem('user_id');
+          // console.log(storage);
+          navigate('/student_dashboard')
+        }
+        if(loginResult.responseBody.userType === 2) {
+          localStorage.setItem('user_id',userid);
+          localStorage.setItem('user_type',loginResult.responseBody.userType);
+          // const storage = localStorage.getItem('user_id');
+          // console.log(storage);
+          navigate('/teacher_dashboard')
+        }
+      }
     };
 
 
   return (
     <div className='loginForm'>
-        <Box
+    
+    
+    <Box component="form"
       sx={{
         display: 'flex',
         flexDirection: 'column',
         '& .MuiTextField-root': { width: '25ch' },
       }}
+      onSubmit={login}
     >
       
-      <TextField label={'User-ID'} id="userid" />
+      <TextField label={'User-ID'} id="userid" name='userid' />
+      
      
-      <TextField label={'Password'} id="password" margin="dense" />
+      <TextField label={'Password'} id="password" margin="dense" type='password' name='password' />
+
+      <Stack direction="row">
+      <Button variant="contained" type='submit'>Log-in</Button>
+    </Stack>
       
     </Box>
 
-    <Stack spacing={2} direction="row">
-      <Button variant="contained" onClick={login}>Log-in</Button>
-    </Stack>
+    
     </div>
     
   )

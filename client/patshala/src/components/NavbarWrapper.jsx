@@ -30,8 +30,11 @@ import WebhookOutlinedIcon from '@mui/icons-material/WebhookOutlined';
 import StudentDashboard from './StudentDashboard';
 import AllStudents from './AllStudents';
 import {useNavigate} from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+// import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
-
+export const CookiesContext = React.createContext(null);
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -101,8 +104,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 function NavbarWrapper ({component})  {
+
+  const [cookies, setCookie] = React.useState('');
+
+  React.useEffect(()=>{
+    // console.log(Cookies.get('accessToken'))
+    setCookie(Cookies.get('accessToken'));
+  }, [])
+  const user_type = localStorage.getItem('user_type');
+  // console.log('usertypr', user_type)
+
   let navigate = useNavigate ();
-    const theme = useTheme();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -114,9 +127,13 @@ function NavbarWrapper ({component})  {
   };
 
   return (
+    <CookiesContext.Provider value={{setCookie}}>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      {
+        cookies &&
+        <>
+        <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -135,6 +152,8 @@ function NavbarWrapper ({component})  {
           </Typography>
         </Toolbar>
       </AppBar>
+        </>
+      }
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -142,8 +161,13 @@ function NavbarWrapper ({component})  {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {[{label:'Dashboard', route: '/teacher_dashboard'}, {label:'Students', route: '/allstudents'}, {label:'Sections', route: '/all_sections'}, {label:'Assignments', route: '/teacher_assignments'}, {label:'Appointments', route: '/teacher_appointments'}, {label:'Attendance', route: '/attendance'}, {label:'Soft Skills', route: '/soft_skills'}, {label:'Notices', route: '/notices'}].map((item, index) => (
+        { 
+          cookies &&
+          <>
+          {/* teacher_navbar */}
+          { user_type == 2 &&
+          <List>
+          {[{label:'Dashboard', route: '/teacher_dashboard'}, {label:'Students', route: '/allstudents'}, {label:'Sections', route: '/all_sections'}, {label:'Assignments', route: '/teacher_assignments'}, {label:'Appointments', route: '/teacher_appointments'}, {label:'Attendance', route: '/attendance'}, {label:'Soft Skills', route: '/teacher_soft_skills'}, {label:'Notices', route: '/notices'}, {label:'Log-Out', route: '/'}].map((item, index) => (
             <ListItem key={item.label} disablePadding sx={{ display: 'block' }} >
               <ListItemButton onClick={()=>{
                 navigate(item.route);
@@ -170,6 +194,7 @@ function NavbarWrapper ({component})  {
                    {index === 5 ? <InventoryOutlinedIcon/> : ''}
                    {index === 6 ? <WebhookOutlinedIcon/> : ''}
                    {index === 7 ? <ContentPasteSearchOutlinedIcon/> : ''}
+                   {index === 8 ? <LogoutIcon/> : ''}
                 </ListItemIcon>
                 <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -177,7 +202,49 @@ function NavbarWrapper ({component})  {
             </ListItem>
             
           ))}
-        </List>
+          </List>}
+          {/* student_navbar */}
+          { user_type == 3 &&
+          <List>
+          {[{label:'Dashboard', route: '/student_dashboard'}, {label:'Students', route: '/allstudents'}, {label:'Sections', route: '/j'}, {label:'Assignments', route: '/student_assignments'}, {label:'Appointments', route: '/student_appointments'}, {label:'Attendance', route: '/j'}, {label:'Soft Skills', route: '/j'}, {label:'Notices', route: '/notices'}, {label:'Log-Out', route: '/'}].map((item, index) => (
+            <ListItem key={item.label} disablePadding sx={{ display: 'block' }} >
+              <ListItemButton onClick={()=>{
+                navigate(item.route);
+              }}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                   
+                   {index === 0 ? <DashboardIcon /> : ''}
+                   {index === 1 ? <PeopleAltOutlinedIcon/> : ''}
+                   {index === 2 ? <MeetingRoomOutlinedIcon/> : ''}
+                   {index === 3 ? <DescriptionOutlinedIcon/> : ''}
+                   {index === 4 ? <VideoCameraFrontOutlinedIcon/> : ''}
+                   {index === 5 ? <InventoryOutlinedIcon/> : ''}
+                   {index === 6 ? <WebhookOutlinedIcon/> : ''}
+                   {index === 7 ? <ContentPasteSearchOutlinedIcon/> : ''}
+                   {index === 8 ? <LogoutIcon/> : ''}
+                </ListItemIcon>
+                <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+            
+          ))}
+          </List>}
+          </>
+          
+        }
         
         {/* <List>
           {['Attandance', 'Soft Skills', 'Notices'].map((text, index) => (
@@ -213,6 +280,7 @@ function NavbarWrapper ({component})  {
         {/* <StudentDashboard/> */}
       </Box>
     </Box>
+    </CookiesContext.Provider>
   );
 }
 
