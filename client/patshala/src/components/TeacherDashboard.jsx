@@ -19,6 +19,9 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PieChart from './PieChart';
 import { getAllStudentsAverageAssignmentScoreBySubjectByScoreRange } from '../assignmentServices';
 import { getTeacher } from '../teacherServices';
+import BarChart from './BarChart';
+import BbarChart from './BbarChart';
+import RadarChart from './RdarChart';
 
 
 Chart.register(CategoryScale);
@@ -89,8 +92,10 @@ const TeacherDashboard = () => {
         <PieChart chartData={assignmentByScoreRangeChartData}></PieChart>
         } 
       </Paper>
-      <Paper elevation={3} />
-      <Paper elevation={3} />
+      <Paper elevation={3}> <RadarChart></RadarChart> </Paper>
+      {/* <Paper elevation={3}> <BarChart options={options} data={data}></BarChart> </Paper> */}
+      {/* <Paper elevation={3}> <BarChart></BarChart> </Paper> */}
+      <Paper elevation={3}> <BbarChart></BbarChart> </Paper>
     </Box></div>
     <div><Box
       sx={{
@@ -100,7 +105,8 @@ const TeacherDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
-          marginLeft: 17
+          marginLeft: 17,
+          marginTop: 20
         },
       }}
     >

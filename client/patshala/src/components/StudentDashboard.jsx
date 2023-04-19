@@ -16,6 +16,7 @@ import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
+import RadarChart from './RdarChart';
 
 Chart.register(CategoryScale);
 
@@ -35,7 +36,7 @@ const StudentDashboard = () => {
       }}
     >
       <Paper elevation={3} />
-      <Paper elevation={3} />
+      <Paper elevation={3} ><RadarChart></RadarChart></Paper>
       <Paper elevation={3} />
     </Box></div>
     <div><Box

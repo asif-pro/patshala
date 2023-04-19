@@ -4,6 +4,7 @@ const teacherController = require('./controllers/teacherController');
 // const TeacherController    = require ( './controllers/teacherController' );
 const assignmentController = require ('./controllers/assignmentController');
 const softSkillsController = require ('./controllers/softSkillsController');
+const updateManyController = require ('./controllers/updateMany');
 
 const express    = require ( 'express' );
 const router     = express.Router ();
@@ -21,6 +22,7 @@ router.get ('/student_assignment/:studentId',assignmentController.getAssignmentB
 router.put ('/update_assignment',assignmentController.updateScore);
 router.put ('/update_sofSkills',softSkillsController.updateSoftSkillsScore);
 router.post ('/insert_softSkills', softSkillsController.insertSoftSkills);
+router.get ('/updatemany', updateManyController.updateSoftSkills);
 router.get ('/softSkills_by_subject/:subject', softSkillsController.getSoftSkillsBySubject);
 router.get ('/allStudentsAverageAssignmentScoreBySubjectByScoreRange/:subject', assignmentController.getAllStudentsAverageAssignmentScoreBySubjectByScoreRange);
 

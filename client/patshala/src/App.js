@@ -12,6 +12,9 @@ import AllSection from './components/AllSection';
 import StudentAssignments from './components/StudentAssignments';
 // import Teacher from '../../../server/model/teacher';
 import TeacherSoftSkills from './components/TeacherSoftSkills';
+import Barchart from './components/BarChart';
+import BbarChart from './components/BbarChart';
+import RadarChart from './components/RdarChart';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
     <Route path='/all_sections' element={<AllSection/>}></Route>
     <Route path='/student_assignments' element={<StudentAssignments/>}></Route>
     <Route path='/teacher_soft_skills' element={<TeacherSoftSkills/>}></Route>
+    <Route path='/barchart' element={<Barchart/>}></Route>
+    <Route path='/bbarchart' element={<BbarChart/>}></Route>
+    <Route path='/radar' element={<RadarChart/>}></Route>
   </Routes>
     
     
