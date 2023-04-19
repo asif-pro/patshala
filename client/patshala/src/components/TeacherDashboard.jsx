@@ -25,7 +25,7 @@ Chart.register(CategoryScale);
 
 const TeacherDashboard = () => {
   const [assignmentSubject, setAssignmentSubject] = React.useState('');
-  const [assignmentByScoreRangeChartData, setAssignmentByScoreRangeChartData] = React.useState('');
+  const [assignmentByScoreRangeChartData, setAssignmentByScoreRangeChartData] = React.useState(null);
 
 
   React.useEffect ( () => {
@@ -49,7 +49,7 @@ const TeacherDashboard = () => {
           datasets: [
             {
               label: "Assignments By Score Range ",
-              data: [1,2,4,5,5],
+              data: values,
               backgroundColor: [
                 "rgba(75,192,192,1)",
                 "#50AF95",
@@ -80,12 +80,15 @@ const TeacherDashboard = () => {
         '& > :not(style)': {
           m: 1,
           width: '20vw',
-          height: '40vh',
+          height: '50vh',
           marginLeft: 17
         },
       }}
     >
-      <Paper elevation={3}> <PieChart chartData={assignmentByScoreRangeChartData}></PieChart> </Paper>
+      <Paper elevation={3}> { assignmentByScoreRangeChartData &&
+        <PieChart chartData={assignmentByScoreRangeChartData}></PieChart>
+        } 
+      </Paper>
       <Paper elevation={3} />
       <Paper elevation={3} />
     </Box></div>

@@ -57,8 +57,8 @@ function computeMutation(newRow, oldRow) {
   if (newRow.Leadership !== oldRow.Leadership) {
     return `Name from '${oldRow.Leadership}' to '${newRow.Leadership}'`;
   }
-  if (newRow.Creativity !== oldRow.Creativity) {
-    return `Name from '${oldRow.Creativity}' to '${newRow.Creativity}'`;
+  if (newRow.Craetivity !== oldRow.Craetivity) {
+    return `Name from '${oldRow.Craetivity}' to '${newRow.Craetivity}'`;
   }
   return null;
 }
