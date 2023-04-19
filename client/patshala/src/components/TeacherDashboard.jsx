@@ -16,13 +16,59 @@ import Divider from '@mui/material/Divider';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PieChart from './PieChart';
+import { getAllStudentsAverageAssignmentScoreBySubjectByScoreRange } from '../assignmentServices';
+import { getTeacher } from '../teacherServices';
 
 
 Chart.register(CategoryScale);
 
 const TeacherDashboard = () => {
+  const [assignmentSubject, setAssignmentSubject] = React.useState('');
+  const [assignmentByScoreRangeChartData, setAssignmentByScoreRangeChartData] = React.useState('');
 
 
+  React.useEffect ( () => {
+    
+    getTeacher (localStorage.getItem('user_id'))
+    .then((res)=>{
+      setAssignmentSubject(res.subject)
+      return res.subject;
+    }).then((res)=>{
+
+      getAllStudentsAverageAssignmentScoreBySubjectByScoreRange(res)
+
+      .then((res)=>{
+
+        let values =[];
+        for (let scoreFrequency in res){
+          values.push(res[scoreFrequency]);
+        }
+         setAssignmentByScoreRangeChartData({
+          labels: ['0-50','51-70','71-80','81-90','91-100'], 
+          datasets: [
+            {
+              label: "Assignments By Score Range ",
+              data: [1,2,4,5,5],
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0"
+              ],
+              borderColor: "black",
+              borderWidth: 2
+            }
+          ]
+         });
+  
+      })
+    });
+
+   
+    
+    
+  }, [])
 
 
   return (
@@ -39,7 +85,7 @@ const TeacherDashboard = () => {
         },
       }}
     >
-      <Paper elevation={3} />
+      <Paper elevation={3}> <PieChart chartData={assignmentByScoreRangeChartData}></PieChart> </Paper>
       <Paper elevation={3} />
       <Paper elevation={3} />
     </Box></div>

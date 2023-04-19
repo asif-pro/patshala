@@ -25,13 +25,6 @@ export async function getAssignmentByStudent(studentId) {
  
 }
 
-// export async function createStudent(data) {
-
-//   return await fetch(url+'insert_student', {
-//      method: 'POST',
-//      headers: {
-//        'Content-Type': 'application/json',
-//      },
-//      body: JSON.stringify(data),
-//    }).then((response) => response.json());
-//  }
+export async function getAllStudentsAverageAssignmentScoreBySubjectByScoreRange (subject) {
+  return await fetch(url+'allStudentsAverageAssignmentScoreBySubjectByScoreRange/'+subject).then((response) => response.json());
+}

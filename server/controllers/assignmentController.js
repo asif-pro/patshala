@@ -91,5 +91,22 @@ assignmentController.updateScore = async ( req, res ) => {
         res.sendStatus(500);
     }
 }
+assignmentController.getAllStudentsAverageAssignmentScoreBySubjectByScoreRange = async ( req, res ) => {
+    try {
+        const req_subject = req.params.subject;
+        const assignments_score_zero_to_fifty = (await assignmentModel.find ({$and:[{subject:req_subject},{score:{$gt:0}},{score:{$lt:50}}]})).length;
+        const assignments_score_fiftyone_to_seventy = (await assignmentModel.find ({$and:[{subject:req_subject},{score:{$gt:51}},{score:{$lt:70}}]})).length;
+        const assignments_score_seventyone_to_eighty = (await assignmentModel.find ({$and:[{subject:req_subject},{score:{$gt:71}},{score:{$lt:80}}]})).length;
+        const assignments_score_eightyone_to_ninety = (await assignmentModel.find ({$and:[{subject:req_subject},{score:{$gt:81}},{score:{$lt:90}}]})).length;
+        const assignments_score_ninetyone_to_hundred = (await assignmentModel.find ({$and:[{subject:req_subject},{score:{$gt:91}},{score:{$lt:100}}]})).length;
+        
+        res.status(200).send({assignments_score_zero_to_fifty, assignments_score_fiftyone_to_seventy, assignments_score_seventyone_to_eighty,assignments_score_eightyone_to_ninety,assignments_score_ninetyone_to_hundred});
+    }
+    catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
 
 module.exports = assignmentController;
+
