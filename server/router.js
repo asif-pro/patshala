@@ -24,6 +24,7 @@ router.put ('/update_sofSkills',softSkillsController.updateSoftSkillsScore);
 router.post ('/insert_softSkills', softSkillsController.insertSoftSkills);
 router.get ('/updatemany', updateManyController.updateSoftSkills);
 router.get ('/softSkills_by_subject/:subject', softSkillsController.getSoftSkillsBySubject);
+router.get ('/getAverageSoftSkillScore/:subject/:skill_name', softSkillsController.averageSoftSkillScoreBySubject);
 router.get ('/allStudentsAverageAssignmentScoreBySubjectByScoreRange/:subject', assignmentController.getAllStudentsAverageAssignmentScoreBySubjectByScoreRange);
 
 

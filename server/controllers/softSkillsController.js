@@ -122,4 +122,23 @@ softSkillsController.updateSoftSkillsScore = async ( req, res ) => {
     }
 }
 
+softSkillsController.averageSoftSkillScoreBySubject = async ( req, res ) => {
+      
+    const subject = req.params.subject;
+    const skill_name = req.params.skill_name;
+    const skills = await softSkillsModel.find ({$and:[{subject:subject, skill_name: skill_name},{score:{$gt:0}},{score:{$lt:10}}]});
+    // console.log('teamwaor', teamWork)
+    // res.send(skills)
+
+    let scoreSum = 0
+    skills.forEach((item)=>{
+        
+        scoreSum += item.score;
+    })
+    
+    // console.log(scoreSum)
+    const avg = scoreSum % skills.length;
+    console.log(avg)
+}
+
 module.exports = softSkillsController;
