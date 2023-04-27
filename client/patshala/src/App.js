@@ -15,6 +15,8 @@ import TeacherSoftSkills from './components/TeacherSoftSkills';
 import Barchart from './components/BarChart';
 import BbarChart from './components/BbarChart';
 import RadarChart from './components/RdarChart';
+import TeacherIndividualStudent from './components/TeacherIndividualStudent'
+import StudentAppointment from './components/StudentAppointment';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
     <Route path='/barchart' element={<Barchart/>}></Route>
     <Route path='/bbarchart' element={<BbarChart/>}></Route>
     <Route path='/radar' element={<RadarChart/>}></Route>
+    <Route path='/individual_student_profile' element={<TeacherIndividualStudent/>}></Route>
+    <Route path='/student_appointments' element={<StudentAppointment/>}></Route>
   </Routes>
     
     

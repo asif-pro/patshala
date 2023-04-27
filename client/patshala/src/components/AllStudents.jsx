@@ -28,6 +28,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
+import {useNavigate} from 'react-router-dom';
 
 
 let year=new Date();
@@ -89,10 +90,11 @@ const AllStudents = () => {
 
   // const [allStudents, setAllStudents] = useState ( [] );
   const [rows, setRows] = useState([]);
+
+  let navigate = useNavigate ();
   
 
   useEffect ( () => {
-
     // const getStudents = async () => {
     //   // const students = await getAllStudents();
     //   // return students;
@@ -514,8 +516,12 @@ const AllStudents = () => {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
+                // console.log(row)
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  <TableRow onClick={()=>{
+                    navigate('/individual_student_profile/'+row.id)
+                  }}
+                   hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

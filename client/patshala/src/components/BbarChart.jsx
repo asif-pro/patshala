@@ -14,8 +14,8 @@ import { PieChart,
 
 } from 'recharts'
 
-const BbarChart = () => {
-
+const BbarChart = ({chrtdata}) => {
+// console.log(chrtdata)
     const data = [
         {name:"Se:A", TeamWork: 5, Curiosity: 7, Creativity: 9, Leadership: 6},
         {name:"Se:B", TeamWork: 9, Curiosity: 6, Creativity: 8, Leadership: 7},
@@ -24,6 +24,7 @@ const BbarChart = () => {
         {name:"Se:E", TeamWork: 6, Curiosity: 9, Creativity: 5, Leadership: 7},
         {name:"Se:F", TeamWork: 10, Curiosity: 6, Creativity: 8, Leadership: 6},
     ]
+    // const data = chrtdata
 
   return (
     <>
@@ -42,7 +43,7 @@ const BbarChart = () => {
           <Tooltip />
         </PieChart> */}
         <BarChart
-          width={500}
+          width={1000}
           height={300}
           data={data}
           margin={{

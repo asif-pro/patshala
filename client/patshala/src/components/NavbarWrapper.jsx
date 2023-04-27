@@ -194,7 +194,10 @@ function NavbarWrapper ({component})  {
                    {index === 5 ? <InventoryOutlinedIcon/> : ''}
                    {index === 6 ? <WebhookOutlinedIcon/> : ''}
                    {index === 7 ? <ContentPasteSearchOutlinedIcon/> : ''}
-                   {index === 8 ? <LogoutIcon/> : ''}
+                   {index === 8 ? <LogoutIcon onClick={ ()=>{
+                    localStorage.clear();
+                    Cookies.remove('accessToken');
+                   }} /> : ''}
                 </ListItemIcon>
                 <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -206,7 +209,7 @@ function NavbarWrapper ({component})  {
           {/* student_navbar */}
           { user_type == 3 &&
           <List>
-          {[{label:'Dashboard', route: '/student_dashboard'}, {label:'Students', route: '/allstudents'}, {label:'Sections', route: '/j'}, {label:'Assignments', route: '/student_assignments'}, {label:'Appointments', route: '/student_appointments'}, {label:'Attendance', route: '/j'}, {label:'Soft Skills', route: '/j'}, {label:'Notices', route: '/notices'}, {label:'Log-Out', route: '/'}].map((item, index) => (
+          {[{label:'Dashboard', route: '/student_dashboard'}, {label:'Assignments', route: '/student_assignments'}, {label:'Appointments', route: '/student_appointments'}, {label:'Log-Out', route: '/'}].map((item, index) => (
             <ListItem key={item.label} disablePadding sx={{ display: 'block' }} >
               <ListItemButton onClick={()=>{
                 navigate(item.route);
@@ -226,14 +229,12 @@ function NavbarWrapper ({component})  {
                 >
                    
                    {index === 0 ? <DashboardIcon /> : ''}
-                   {index === 1 ? <PeopleAltOutlinedIcon/> : ''}
-                   {index === 2 ? <MeetingRoomOutlinedIcon/> : ''}
-                   {index === 3 ? <DescriptionOutlinedIcon/> : ''}
-                   {index === 4 ? <VideoCameraFrontOutlinedIcon/> : ''}
-                   {index === 5 ? <InventoryOutlinedIcon/> : ''}
-                   {index === 6 ? <WebhookOutlinedIcon/> : ''}
-                   {index === 7 ? <ContentPasteSearchOutlinedIcon/> : ''}
-                   {index === 8 ? <LogoutIcon/> : ''}
+                   {index === 1 ? <DescriptionOutlinedIcon/> : ''}
+                   {index === 2 ? <VideoCameraFrontOutlinedIcon/> : ''}
+                   {index === 3 ? <LogoutIcon onClick={ ()=>{
+                    localStorage.clear();
+                    Cookies.remove('accessToken');
+                   }}/> : ''}
                 </ListItemIcon>
                 <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>

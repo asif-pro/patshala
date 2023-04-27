@@ -19,6 +19,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PieChart from './PieChart';
 import { getAllStudentsAverageAssignmentScoreBySubjectByScoreRange } from '../assignmentServices';
 import { getTeacher } from '../teacherServices';
+import { averageSoftSkillScoreBySubject } from '../sofSkillsServices';
 import BarChart from './BarChart';
 import BbarChart from './BbarChart';
 import RadarChart from './RdarChart';
@@ -28,10 +29,20 @@ Chart.register(CategoryScale);
 
 const TeacherDashboard = () => {
   const [assignmentSubject, setAssignmentSubject] = React.useState('');
+  // const [softSkillSubject, setSoftSkillSubject] = React.useState('');
   const [assignmentByScoreRangeChartData, setAssignmentByScoreRangeChartData] = React.useState(null);
+  const [softskillBySubjectNSectionAverage, setsoftskillBySubjectNSectionAverage] = React.useState([]);
 
 
   React.useEffect ( () => {
+    const data = [
+      {name:"Se:A", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+      {name:"Se:B", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+      {name:"Se:C", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+      {name:"Se:D", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+      // {name:"Se:E", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+      // {name:"Se:F", TeamWork: 0, Curiosity: 0, Creativity: 0, Leadership: 0},
+  ]
     
     getTeacher (localStorage.getItem('user_id'))
     .then((res)=>{
@@ -39,10 +50,213 @@ const TeacherDashboard = () => {
       return res.subject;
     }).then((res)=>{
 
+      // dealing for softskill chart
+      let subject_name = res;
+      for (let i=0; i<4; i++){
+        //For Section 'A'
+        if(i===0){
+          for (let j=0; j<4; j++){
+            //TeamWork
+            if (j===0){
+              averageSoftSkillScoreBySubject('A',subject_name, 'TeamWork')
+              .then ( (res)=> {
+                data[i].TeamWork= res;
+              } )
+            }
+            //Curiosity
+            if (j===1){
+              averageSoftSkillScoreBySubject('A',subject_name, 'Curiosity')
+              .then ( (res)=> {
+                data[i].Curiosity= res;
+              } )
+            }
+            //Creativity
+            if (j===2){
+              averageSoftSkillScoreBySubject('A',subject_name, 'Craetivity')
+              .then ( (res)=> {
+                data[i].Creativity= res;
+              } )
+            }
+            //Leadership
+            if (j===3){
+              averageSoftSkillScoreBySubject('A',subject_name, 'Leadership')
+              .then ( (res)=> {
+                data[i].Leadership= res;
+              } )
+            }
+          }
+        }
+        //For Section 'B'
+        if(i===1){
+          for (let j=0; j<4; j++){
+            //TeamWork
+            if (j===0){
+              averageSoftSkillScoreBySubject('B',subject_name , 'TeamWork')
+              .then ( (res)=> {
+                data[i].TeamWork= res;
+              } )
+            }
+            //Curiosity
+            if (j===1){
+              averageSoftSkillScoreBySubject('B',subject_name , 'Curiosity')
+              .then ( (res)=> {
+                data[i].Curiosity= res;
+              } )
+            }
+            //Creativity
+            if (j===2){
+              averageSoftSkillScoreBySubject('B',subject_name , 'Craetivity')
+              .then ( (res)=> {
+                data[i].Creativity= res;
+              } )
+            }
+            //Leadership
+            if (j===3){
+              averageSoftSkillScoreBySubject('B',subject_name , 'Leadership')
+              .then ( (res)=> {
+                data[i].Leadership= res;
+              } )
+            }
+          }
+        }
+        //For Section 'C'
+        if(i===2){
+          for (let j=0; j<4; j++){
+            //TeamWork
+            if (j===0){
+              averageSoftSkillScoreBySubject('C',subject_name , 'TeamWork')
+              .then ( (res)=> {
+                data[i].TeamWork= res;
+              } )
+            }
+            //Curiosity
+            if (j===1){
+              averageSoftSkillScoreBySubject('C',subject_name , 'Curiosity')
+              .then ( (res)=> {
+                data[i].Curiosity= res;
+              } )
+            }
+            //Creativity
+            if (j===2){
+              averageSoftSkillScoreBySubject('C',subject_name , 'Craetivity')
+              .then ( (res)=> {
+                data[i].Creativity= res;
+              } )
+            }
+            //Leadership
+            if (j===3){
+              averageSoftSkillScoreBySubject('C',subject_name , 'Leadership')
+              .then ( (res)=> {
+                data[i].Leadership= res;
+              } )
+            }
+          }
+        }
+        //For Section 'D'
+        if(i===3){
+          for (let j=0; j<4; j++){
+            //TeamWork
+            if (j===0){
+              averageSoftSkillScoreBySubject('D',subject_name , 'TeamWork')
+              .then ( (res)=> {
+                data[i].TeamWork= res;
+              } )
+            }
+            //Curiosity
+            if (j===1){
+              averageSoftSkillScoreBySubject('D',subject_name , 'Curiosity')
+              .then ( (res)=> {
+                data[i].Curiosity= res;
+              } )
+            }
+            //Creativity
+            if (j===2){
+              averageSoftSkillScoreBySubject('D',subject_name , 'Craetivity')
+              .then ( (res)=> {
+                data[i].Creativity= res;
+              } )
+            }
+            //Leadership
+            if (j===3){
+              averageSoftSkillScoreBySubject('D',subject_name , 'Leadership')
+              .then ( (res)=> {
+                data[i].Leadership= res;
+              } )
+            }
+          }
+        }
+        //For Section 'E'
+        // if(i===4){
+        //   for (let j=0; j<4; j++){
+        //     //TeamWork
+        //     if (j===0){
+        //       averageSoftSkillScoreBySubject('E','Math', 'TeamWork')
+        //       .then ( (res)=> {
+        //         data[i].TeamWork= res;
+        //       } )
+        //     }
+        //     //Curiosity
+        //     if (j===1){
+        //       averageSoftSkillScoreBySubject('E','Math', 'Curiosity')
+        //       .then ( (res)=> {
+        //         data[i].Curiosity= res;
+        //       } )
+        //     }
+        //     //Creativity
+        //     if (j===2){
+        //       averageSoftSkillScoreBySubject('E','Math', 'Craetivity')
+        //       .then ( (res)=> {
+        //         data[i].Creativity= res;
+        //       } )
+        //     }
+        //     //Leadership
+        //     if (j===3){
+        //       averageSoftSkillScoreBySubject('E','Math', 'Leadership')
+        //       .then ( (res)=> {
+        //         data[i].Leadership= res;
+        //       } )
+        //     }
+        //   }
+        // }
+        // //For Section 'F'
+        // if(i===3){
+        //   for (let j=0; j<4; j++){
+        //     //TeamWork
+        //     if (j===0){
+        //       averageSoftSkillScoreBySubject('F','Math', 'TeamWork')
+        //       .then ( (res)=> {
+        //         data[i].TeamWork= res;
+        //       } )
+        //     }
+        //     //Curiosity
+        //     if (j===1){
+        //       averageSoftSkillScoreBySubject('F','Math', 'Curiosity')
+        //       .then ( (res)=> {
+        //         data[i].Curiosity= res;
+        //       } )
+        //     }
+        //     //Creativity
+        //     if (j===2){
+        //       averageSoftSkillScoreBySubject('F','Math', 'Craetivity')
+        //       .then ( (res)=> {
+        //         data[i].Creativity= res;
+        //       } )
+        //     }
+        //     //Leadership
+        //     if (j===3){
+        //       averageSoftSkillScoreBySubject('F','Math', 'Leadership')
+        //       .then ( (res)=> {
+        //         data[i].Leadership= res;
+        //       } )
+        //     }
+        //   }
+        // }
+      }
+
+      //deling for assignment
       getAllStudentsAverageAssignmentScoreBySubjectByScoreRange(res)
 
       .then((res)=>{
-
         let values =[];
         for (let scoreFrequency in res){
           values.push(res[scoreFrequency]);
@@ -66,12 +280,36 @@ const TeacherDashboard = () => {
          });
   
       })
-    });
+    }).then(()=>{
+      setsoftskillBySubjectNSectionAverage(data)
+      // setsoftskillBySubjectNSectionAverage(data.map(obj=>({...obj})))
+      
+      // console.log('setsoftskillBySubjectNSectionAverage', softskillBySubjectNSectionAverage);
+    }
+    );
 
+    //for average soft skill chart
+    // getTeacher (localStorage.getItem('user_id'))
+    // .then((res)=>{
+    //   setSoftSkillSubject(res.subject)
+    //   return res.subject;
+    // }).then((res)=>{
+    //   console.log(res);
+      
+    // })
+    
+    // console.log(softSkillSubject);
+    // console.log(assignmentSubject);
+    // console.log('softskill',data)
+  //  setsoftskillBySubjectNSectionAverage(data);
    
     
     
   }, [])
+
+  // React.useEffect ( ()=> {
+  //   console.log('checking state newly',softskillBySubjectNSectionAverage)
+  // }, [softskillBySubjectNSectionAverage]) 
 
 
   return (
@@ -82,8 +320,25 @@ const TeacherDashboard = () => {
         flexWrap: 'wrap',
         '& > :not(style)': {
           m: 1,
-          width: '20vw',
+          width: '68vw',
           height: '50vh',
+          marginLeft: 17,
+          paddingTop: 15,
+          paddingLeft: 10,
+          marginBottom: 5
+        },
+      }}
+    >
+      <Paper elevation={3}> <BbarChart chrtdata={softskillBySubjectNSectionAverage}></BbarChart> </Paper>
+    </Box></div>
+    <div><Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        '& > :not(style)': {
+          m: 1,
+          width: '30vw',
+          height: '70vh',
           marginLeft: 17
         },
       }}
@@ -95,7 +350,7 @@ const TeacherDashboard = () => {
       <Paper elevation={3}> <RadarChart></RadarChart> </Paper>
       {/* <Paper elevation={3}> <BarChart options={options} data={data}></BarChart> </Paper> */}
       {/* <Paper elevation={3}> <BarChart></BarChart> </Paper> */}
-      <Paper elevation={3}> <BbarChart></BbarChart> </Paper>
+      {/* <Paper elevation={3}> <BbarChart chrtdata={softskillBySubjectNSectionAverage}></BbarChart> </Paper> */}
     </Box></div>
     <div><Box
       sx={{

@@ -7,16 +7,19 @@ updateManyController.updateSoftSkills = async  (req, res) => {
         {
             "$and": [
               {
-                "section": "F"
+                "section": "D"
               },
               {
-                "skill_name": "TeamWork"
+                "subject": "Language"
+              },
+              {
+                "skill_name": "Curiosity"
               }
             ]
           },
           {
             "$set": {
-              "score": 8
+              "score": 9
             }
           }
     )

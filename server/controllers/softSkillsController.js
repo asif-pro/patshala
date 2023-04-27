@@ -124,11 +124,13 @@ softSkillsController.updateSoftSkillsScore = async ( req, res ) => {
 
 softSkillsController.averageSoftSkillScoreBySubject = async ( req, res ) => {
       
-    const subject = req.params.subject;
+    try {
+        const subject = req.params.subject;
     const skill_name = req.params.skill_name;
-    const skills = await softSkillsModel.find ({$and:[{subject:subject, skill_name: skill_name},{score:{$gt:0}},{score:{$lt:10}}]});
+    const section = req.params.sec;
+    const skills = await softSkillsModel.find ({$and:[{subject:subject, skill_name: skill_name, section: section},{score:{$gt:0}},{score:{$lt:10}}]});
     // console.log('teamwaor', teamWork)
-    // res.send(skills)
+    //  res.send(skills)
 
     let scoreSum = 0
     skills.forEach((item)=>{
@@ -137,8 +139,17 @@ softSkillsController.averageSoftSkillScoreBySubject = async ( req, res ) => {
     })
     
     // console.log(scoreSum)
-    const avg = scoreSum % skills.length;
-    console.log(avg)
+    const avg = scoreSum / skills.length;
+    // console.log(scoreSum);
+    // console.log(skills.length);
+    // console.log(avg);
+    res.status(200).send(JSON.stringify(avg));
+    }
+
+    catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
 }
 
 module.exports = softSkillsController;

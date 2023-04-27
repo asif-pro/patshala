@@ -17,10 +17,27 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import RadarChart from './RdarChart';
+import ProgressBar from './ProgressBar';
 
 Chart.register(CategoryScale);
 
 const StudentDashboard = () => {
+  const [mathScore, setMathScore] = React.useState(0);
+  const [scienceScore, setScienceScore] = React.useState(0);
+  const [historyScore, setHistoryScore] = React.useState(0);
+  const [languageScore, setLanguageScore] = React.useState(0);
+  const [artScore, setArtScore] = React.useState(0);
+  const [musicScore, setMusicScore] = React.useState(0);
+
+  React.useEffect(() => {
+    setMathScore(75);
+    setScienceScore(85);
+    setHistoryScore(65);
+    setLanguageScore(70);
+    setArtScore(88);
+    setMusicScore(92);
+}, [])
+
   return (
     <>
     <div><Box
@@ -31,11 +48,21 @@ const StudentDashboard = () => {
           m: 1,
           width: '20vw',
           height: '40vh',
-          marginLeft: 17
+          marginLeft: 17,
+          padding : 1,
+          marginBottom: 5
         },
       }}
     >
-      <Paper elevation={3} />
+      <Paper elevation={3} >
+        <h2 className='subjectScoreHeading'>Subject Score</h2>
+        <ProgressBar score={mathScore} subjectName={'Math'}></ProgressBar>
+        <ProgressBar score={scienceScore} subjectName={'Science'}></ProgressBar>
+        <ProgressBar score={historyScore} subjectName={'History'}></ProgressBar>
+        <ProgressBar score={languageScore} subjectName={'Language'}></ProgressBar>
+        <ProgressBar score={artScore} subjectName={'Art'}></ProgressBar>
+        <ProgressBar score={musicScore} subjectName={'Music'}></ProgressBar>
+      </Paper>
       <Paper elevation={3} ><RadarChart></RadarChart></Paper>
       <Paper elevation={3} />
     </Box></div>
@@ -62,7 +89,7 @@ const StudentDashboard = () => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <InventoryOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Biology" secondary="100%" />
@@ -80,7 +107,7 @@ const StudentDashboard = () => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <InventoryOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Math" secondary="92%" />
@@ -89,7 +116,7 @@ const StudentDashboard = () => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ContentPasteSearchIcon />
+            <InventoryOutlinedIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Physics" secondary="86%" />

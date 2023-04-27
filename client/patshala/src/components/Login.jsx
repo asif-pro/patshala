@@ -28,7 +28,7 @@ const Login = () => {
       const authToken = loginResult.responseBody.accessToken;
       Cookies.set('accessToken', authToken);
       setCookie(authToken);
-      console.log(loginResult);
+      // console.log(loginResult);
 
       if (loginResult.status === 200){
 

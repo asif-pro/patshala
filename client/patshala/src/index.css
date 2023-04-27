@@ -27,6 +27,9 @@ code {
 .searchnselect {
   display: flex;
 }
+.subjectScoreHeading {
+  text-align: center;
+}
 /*.topBar {
   background: #998989;
   height: 50px;

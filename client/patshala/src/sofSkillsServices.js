@@ -20,3 +20,9 @@ export async function updateSoftSkillsScore(studentId, subject, skill_name, scor
     // response.json()
   });
 }
+
+// For Teacher
+export async function averageSoftSkillScoreBySubject(section, subject, skill_name){
+  return await fetch(url+'getAverageSoftSkillScore/'+section+'/'+subject+'/'+skill_name).then((response) => response.json());
+  
+}
