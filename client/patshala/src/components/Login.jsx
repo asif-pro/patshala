@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { checkLogin } from '../loginServices';
 import Cookies from 'js-cookie';
 import {CookiesContext} from './NavbarWrapper';
+import loginImage from './images/sms.png'
 
 // const {setCookie} = CookiesContext();
 
@@ -51,7 +52,11 @@ const Login = () => {
 
 
   return (
-    <div className='loginForm'>
+    <div className='logincontainer'>
+      <div className='loginImage'><img src={loginImage}></img></div>
+      <div className='loginForm'>
+      
+      <h2>PATSHALA</h2>
     
     
     <Box component="form"
@@ -74,6 +79,9 @@ const Login = () => {
       
     </Box>
 
+    
+    </div>
+    
     
     </div>
     

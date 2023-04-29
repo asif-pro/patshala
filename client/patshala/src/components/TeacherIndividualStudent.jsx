@@ -64,10 +64,11 @@ return (
       '& > :not(style)': {
         m: 1,
         width: '23vw',
-        height: '40vh',
+        height: '60vh',
         marginLeft: 17,
         padding : 1,
-        marginBottom: 5
+        marginBottom: 5,
+        paddingBottom: 10
       },
     }}
   >
@@ -91,7 +92,7 @@ return (
       <ProgressBar score={assignment6} subjectName={'Assignment-6'}></ProgressBar>
     </Paper>
   </Box></div>
-  <div><Box
+  {/* <div><Box
     sx={{
       display: 'flex',
       flexWrap: 'wrap',
@@ -151,7 +152,7 @@ return (
     <Paper elevation={3}><h2 className='cardHeader'></h2>
       </Paper>
     <Paper elevation={3}><h2 className='cardHeader'></h2></Paper>
-  </Box></div>
+  </Box></div> */}
   </>
 )
 }

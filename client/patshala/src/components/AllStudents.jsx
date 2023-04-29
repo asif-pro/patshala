@@ -519,7 +519,8 @@ const AllStudents = () => {
                 // console.log(row)
                 return (
                   <TableRow onClick={()=>{
-                    navigate('/individual_student_profile/'+row.id)
+                    navigate('/individual_student_profile/')
+                    // navigate('/individual_student_profile/'+row.id)
                   }}
                    hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {

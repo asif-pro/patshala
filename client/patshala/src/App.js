@@ -17,6 +17,8 @@ import BbarChart from './components/BbarChart';
 import RadarChart from './components/RdarChart';
 import TeacherIndividualStudent from './components/TeacherIndividualStudent'
 import StudentAppointment from './components/StudentAppointment';
+import PieChartStudenet from './components/PieChartStudenet';
+import Calendly from './components/Calendly';
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
     <Route path='/radar' element={<RadarChart/>}></Route>
     <Route path='/individual_student_profile' element={<TeacherIndividualStudent/>}></Route>
     <Route path='/student_appointments' element={<StudentAppointment/>}></Route>
+    <Route path='/studentpie' element={<PieChartStudenet/>}></Route>
+    <Route path='/calendly' element={<Calendly/>}></Route>
   </Routes>
     
     

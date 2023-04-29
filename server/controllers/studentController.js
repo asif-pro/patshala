@@ -1,7 +1,8 @@
 const studentModel = require ( '../model/student' );
 const loginModel = require ('../model/loginModel');
 const assignmentModel = require ('../model/assignment');
-const softSkillsModel = require ('../model/softSkills')
+const softSkillsModel = require ('../model/softSkills');
+const mailController = require ('../mailController');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -72,9 +73,9 @@ studentController.insertStudent = async ( req, res ) => {
         
 
 
+            mailController({reciver:email, subject:'Patshala Student Credentials', text: `User-ID: ${studentId}, Password: ${password}`})
 
         res.status(201).send (JSON.stringify(await studentModel.create ({studentId, studentName, password: hashedPassword, gender, dob, clas_s, section, phone, email, userType })));
-
     } catch (error) {
         console.log(error);
         res.sendStatus(500);

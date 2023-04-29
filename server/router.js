@@ -28,7 +28,7 @@ router.get ('/updatemany', updateManyController.updateSoftSkills);
 router.get ('/softSkills_by_subject/:subject', softSkillsController.getSoftSkillsBySubject);
 router.get ('/getAverageSoftSkillScore/:sec/:subject/:skill_name', softSkillsController.averageSoftSkillScoreBySubject);
 router.get ('/allStudentsAverageAssignmentScoreBySubjectByScoreRange/:subject', assignmentController.getAllStudentsAverageAssignmentScoreBySubjectByScoreRange);
-router.post ('/mail', mail.sendMail);
+// router.post ('/mail', mail.sendMail);
 router.post ('/post_notice', noticeController.insertNotice);
 
 

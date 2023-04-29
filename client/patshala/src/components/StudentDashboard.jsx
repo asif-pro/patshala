@@ -18,6 +18,7 @@ import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOu
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import RadarChart from './RdarChart';
 import ProgressBar from './ProgressBar';
+import PieChartStudenet from './PieChartStudenet';
 
 Chart.register(CategoryScale);
 
@@ -47,10 +48,11 @@ const StudentDashboard = () => {
         '& > :not(style)': {
           m: 1,
           width: '20vw',
-          height: '40vh',
+          height: '50vh',
           marginLeft: 17,
           padding : 1,
-          marginBottom: 5
+          marginBottom: 5,
+          paddingBottom: 10
         },
       }}
     >
@@ -64,7 +66,7 @@ const StudentDashboard = () => {
         <ProgressBar score={musicScore} subjectName={'Music'}></ProgressBar>
       </Paper>
       <Paper elevation={3} ><RadarChart></RadarChart></Paper>
-      <Paper elevation={3} />
+      <Paper elevation={3} ><PieChartStudenet></PieChartStudenet></Paper>
     </Box></div>
     <div><Box
       sx={{

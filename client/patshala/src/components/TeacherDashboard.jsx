@@ -323,13 +323,13 @@ const TeacherDashboard = () => {
           width: '68vw',
           height: '50vh',
           marginLeft: 17,
-          paddingTop: 15,
+          paddingTop: 5,
           paddingLeft: 10,
           marginBottom: 5
         },
       }}
-    >
-      <Paper elevation={3}> <BbarChart chrtdata={softskillBySubjectNSectionAverage}></BbarChart> </Paper>
+    > 
+      <Paper elevation={3}><h2 style={{ textAlign: "center" }}>All Sections Average Skill</h2> <BbarChart chrtdata={softskillBySubjectNSectionAverage}></BbarChart> </Paper>
     </Box></div>
     <div><Box
       sx={{
@@ -339,7 +339,8 @@ const TeacherDashboard = () => {
           m: 1,
           width: '30vw',
           height: '70vh',
-          marginLeft: 17
+          marginLeft: 17,
+          paddingBottom: 10
         },
       }}
     >
